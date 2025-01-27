@@ -17,7 +17,7 @@ function IndexPopup() {
   }
   getData()
   return (
-    <div className="plasmo-flex plasmo-flex-col plasmo-items-center plasmo-justify-center plasmo-h-16 plasmo-w-40">
+    <div className="plasmo-flex plasmo-flex-col plasmo-items-center plasmo-justify-center plasmo-h-16 plasmo-w-40 plasmo-text-blue-600">
       <CountButton />
       <p>Lauda {day}</p>
     </div>
