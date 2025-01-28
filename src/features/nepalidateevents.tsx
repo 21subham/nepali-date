@@ -46,7 +46,9 @@ export default function NepaliDateEvents({
           {prodtithi}
         </h1>
         {/* for eng date */}
-        <p className="plasmo-text-center plasmo-text-sm">{bsDate[0]}</p>
+        <p className="plasmo-text-center plasmo-text-sm">
+          {bsDate[0]}-{bsDate[1]}-{bsDate[2]}
+        </p>
         {/* for day */}
         <p className="plasmo-text-center plasmo-text-lg plasmo-mt-2">
           {nepday}
