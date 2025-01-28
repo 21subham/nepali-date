@@ -1,4 +1,5 @@
 import { Calendar, Clock } from "lucide-react"
+import { useEffect, useState } from "react"
 
 interface Event {
   time: string
@@ -24,17 +25,53 @@ export default function NepaliDateEvents({
     { time: "१६:००", title: "प्रोजेक्ट रिभ्यु" }
   ]
 
+  const date = new Date(Date.now())
+  const [nepday, setnepday] = useState("")
+  useEffect(() => {
+    const englishDay = date.toLocaleDateString("en-US", { weekday: "long" })
+
+    switch (englishDay) {
+      case "Sunday":
+        setnepday("आइतबार")
+        break
+      case "Monday":
+        setnepday("सोमबार")
+        break
+      case "Tuesday":
+        setnepday("मंगलबार")
+        break
+      case "Wednesday":
+        setnepday("बुधबार")
+        break
+      case "Thursday":
+        setnepday("बिहीबार")
+        break
+      case "Friday":
+        setnepday("शुक्रबार")
+        break
+      case "Saturday":
+        setnepday("शनिबार")
+        break
+      default:
+        setnepday("")
+        break
+    }
+  }, [])
+  console.log(nepday)
+
   return (
     <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl  plasmo-shadow-lg">
       <div className="plasmo-bg-red-800 plasmo-text-white plasmo-p-4 plasmo-m-2 plasmo-rounded-lg">
         <h1 className="plasmo-text-center plasmo-font-bold plasmo-text-2xl">
           {currentNepaliDate}
         </h1>
+        {/* for eng date */}
         <p className="plasmo-text-center plasmo-text-sm">
-          {currentGregorianDate}
+          {date.toDateString().slice(4)}
         </p>
+        {/* for day */}
         <p className="plasmo-text-center plasmo-text-lg plasmo-mt-2">
-          {dayOfWeek}
+          {nepday}
         </p>
       </div>
       <div className="plasmo-p-4">
