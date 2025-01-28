@@ -26,7 +26,7 @@ export default function NepaliDateEvents({
 
   return (
     <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl  plasmo-shadow-lg">
-      <div className="plasmo-bg-red-800 plasmo-text-white plasmo-p-4 plasmo-m-2">
+      <div className="plasmo-bg-red-800 plasmo-text-white plasmo-p-4 plasmo-m-2 plasmo-rounded-lg">
         <h1 className="plasmo-text-center plasmo-font-bold plasmo-text-2xl">
           {currentNepaliDate}
         </h1>
