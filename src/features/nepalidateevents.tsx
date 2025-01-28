@@ -1,6 +1,9 @@
 import { Calendar, Clock } from "lucide-react"
 import { useEffect, useState } from "react"
 
+import getData from "~lib/getData"
+import getNepaliDate from "~lib/getNepaliDate"
+
 interface Event {
   time: string
   title: string
@@ -13,10 +16,7 @@ interface NepaliDateEventsProps {
 export default function NepaliDateEvents({
   currentDay = ""
 }: NepaliDateEventsProps) {
-  // Note: You'll need to implement the logic for date conversion and fetching events
-  const currentNepaliDate = currentDay || "२०८० जेठ १५" // Use the provided day or fallback
-  const currentGregorianDate = "May 29, 2023" // Example date, replace with actual Gregorian date
-  const dayOfWeek = "सोमबार" // Example day, replace with actual day of week in Nepali
+  const currentNepaliDate = currentDay || " जेठ "
 
   // Example events, replace with actual events for the day
   const events: Event[] = [
@@ -26,6 +26,8 @@ export default function NepaliDateEvents({
   ]
 
   const date = new Date(Date.now())
+  const nepaliday = date.getDate().toString()
+
   const [nepday, setnepday] = useState("")
   useEffect(() => {
     const englishDay = date.toLocaleDateString("en-US", { weekday: "long" })
@@ -56,14 +58,21 @@ export default function NepaliDateEvents({
         setnepday("")
         break
     }
+
+    const getTithi = async () => {
+      console.log("nepali date", getNepaliDate())
+
+      const tithi = await getData(nepaliday, "10", "2081")
+      //englishdate, nepalimonth, nepaliyear   28, 10, 2081
+    }
+    getTithi()
   }, [])
-  console.log(nepday)
 
   return (
     <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl  plasmo-shadow-lg">
       <div className="plasmo-bg-red-800 plasmo-text-white plasmo-p-4 plasmo-m-2 plasmo-rounded-lg">
         <h1 className="plasmo-text-center plasmo-font-bold plasmo-text-2xl">
-          {currentNepaliDate}
+          {date.getDate()}
         </h1>
         {/* for eng date */}
         <p className="plasmo-text-center plasmo-text-sm">
