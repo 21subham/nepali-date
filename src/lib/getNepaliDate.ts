@@ -42,7 +42,11 @@ export default async function getNepaliDate() {
     const bsDate = adToBs(adDate).toString().split("-")
     const [bsYear, bsMonth, bsDay] = bsDate
 
-    const tithi = await getData(bsDay, bsMonth, bsYear)
+    const tithi = await getData(
+      today.getDate().toString().padStart(2, "0"),
+      bsMonth,
+      bsYear
+    )
 
     return {
       nepday,
