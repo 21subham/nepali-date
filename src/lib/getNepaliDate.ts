@@ -39,22 +39,20 @@ export default async function getNepaliDate() {
     const date = today.getDate().toString()
     const adDate = `${year}-${month}-${date}`
 
-    // Convert AD date to BS date
     const bsDate = adToBs(adDate).toString().split("-")
     const [bsYear, bsMonth, bsDay] = bsDate
 
-    // Fetch tithi for the BS date
     const tithi = await getData(bsDay, bsMonth, bsYear)
 
     return {
-      nepday, // Nepali day (e.g., "सोमबार")
-      bsDate, // BS date as an array [year, month, day]
-      year, // AD year
-      month, // AD month
-      date, // AD day
-      adDate, // AD date in YYYY-MM-DD format
-      monthcalc: monthcalc(bsMonth), // Nepali month name (e.g., "बैशाख")
-      tithi // Tithi for the date (e.g., "पञ्चमी")
+      nepday,
+      bsDate,
+      year,
+      month,
+      date,
+      adDate,
+      monthcalc: monthcalc(bsMonth),
+      tithi
     }
   } catch (e) {
     console.error("Error in getNepaliDate:", e.message)
