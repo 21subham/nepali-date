@@ -18,66 +18,35 @@ export default function NepaliDateEvents({
 }: NepaliDateEventsProps) {
   const currentNepaliDate = currentDay || " जेठ "
 
+  const { nepday, bsDate, year, month, date, adDate } = getNepaliDate()
+
   // Example events, replace with actual events for the day
   const events: Event[] = [
     { time: "११:००", title: "टीम मिटिङ" },
     { time: "१४:३०", title: "लन्च ब्रेक" },
     { time: "१६:००", title: "प्रोजेक्ट रिभ्यु" }
   ]
+  const [prodtithi, setprodtithi] = useState("")
+  const getTithi = async () => {
+    console.log("nepali date", getNepaliDate())
 
-  const date = new Date(Date.now())
-  const nepaliday = date.getDate().toString()
+    const tithi = await getData("28", "10", "2081")
+    console.log("tithi", tithi)
+    setprodtithi(tithi)
 
-  const [nepday, setnepday] = useState("")
-  useEffect(() => {
-    const englishDay = date.toLocaleDateString("en-US", { weekday: "long" })
+    //englishdate, nepalimonth, nepaliyear   28, 10, 2081
+  }
 
-    switch (englishDay) {
-      case "Sunday":
-        setnepday("आइतबार")
-        break
-      case "Monday":
-        setnepday("सोमबार")
-        break
-      case "Tuesday":
-        setnepday("मंगलबार")
-        break
-      case "Wednesday":
-        setnepday("बुधबार")
-        break
-      case "Thursday":
-        setnepday("बिहीबार")
-        break
-      case "Friday":
-        setnepday("शुक्रबार")
-        break
-      case "Saturday":
-        setnepday("शनिबार")
-        break
-      default:
-        setnepday("")
-        break
-    }
-
-    const getTithi = async () => {
-      console.log("nepali date", getNepaliDate())
-
-      const tithi = await getData(nepaliday, "10", "2081")
-      //englishdate, nepalimonth, nepaliyear   28, 10, 2081
-    }
-    getTithi()
-  }, [])
+  getTithi()
 
   return (
     <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl  plasmo-shadow-lg">
       <div className="plasmo-bg-red-800 plasmo-text-white plasmo-p-4 plasmo-m-2 plasmo-rounded-lg">
         <h1 className="plasmo-text-center plasmo-font-bold plasmo-text-2xl">
-          {date.getDate()}
+          {prodtithi}
         </h1>
         {/* for eng date */}
-        <p className="plasmo-text-center plasmo-text-sm">
-          {date.toDateString().slice(4)}
-        </p>
+        <p className="plasmo-text-center plasmo-text-sm">{bsDate[0]}</p>
         {/* for day */}
         <p className="plasmo-text-center plasmo-text-lg plasmo-mt-2">
           {nepday}
