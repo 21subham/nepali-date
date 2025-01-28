@@ -18,7 +18,7 @@ export default async function getData(
     // Parse the JSON data
     const data = await response.json()
     // Find the matching day
-    const day = data.days.find((day) => day.e === nepDate)
+    const day = data.days.find((day: { e: string }) => day.e === nepDate)
 
     // Log and return the data if found
     if (day) {

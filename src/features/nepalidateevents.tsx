@@ -9,49 +9,50 @@ interface Event {
   title: string
 }
 
-interface NepaliDateEventsProps {
-  currentDay?: string
-}
+export default function NepaliDateEvents() {
+  const [nepaliDate, setNepaliDate] = useState<{
+    nepday: string
+    bsDate: string[]
+    adDate: string
+    monthcalc: string
+    tithi: string | null
+  } | null>(null)
 
-export default function NepaliDateEvents({
-  currentDay = ""
-}: NepaliDateEventsProps) {
-  const currentNepaliDate = currentDay || " जेठ "
+  const [convertedMonth, setConvertedMonth] = useState("")
+  const [tithi, setTithi] = useState("")
 
-  const { nepday, bsDate, year, month, date, adDate } = getNepaliDate()
-
-  // Example events, replace with actual events for the day
   const events: Event[] = [
     { time: "११:००", title: "टीम मिटिङ" },
     { time: "१४:३०", title: "लन्च ब्रेक" },
     { time: "१६:००", title: "प्रोजेक्ट रिभ्यु" }
   ]
-  const [prodtithi, setprodtithi] = useState("")
-  const getTithi = async () => {
-    console.log("nepali date", getNepaliDate())
 
-    const tithi = await getData("28", "10", "2081")
-    console.log("tithi", tithi)
-    setprodtithi(tithi)
+  useEffect(() => {
+    const fetchNepaliDate = async () => {
+      try {
+        const dateData = await getNepaliDate()
+        if (dateData) {
+          setNepaliDate(dateData)
+          setConvertedMonth(dateData.monthcalc)
+          setTithi(dateData.tithi || "")
+        }
+      } catch (error) {
+        console.error("Error fetching Nepali date:", error)
+      }
+    }
 
-    //englishdate, nepalimonth, nepaliyear   28, 10, 2081
-  }
-
-  getTithi()
+    fetchNepaliDate()
+  }, [])
 
   return (
-    <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl  plasmo-shadow-lg">
+    <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl plasmo-shadow-lg">
       <div className="plasmo-bg-red-800 plasmo-text-white plasmo-p-4 plasmo-m-2 plasmo-rounded-lg">
         <h1 className="plasmo-text-center plasmo-font-bold plasmo-text-2xl">
-          {prodtithi}
+          {convertedMonth} {nepaliDate.bsDate[2]}, {nepaliDate.bsDate[0]}
         </h1>
-        {/* for eng date */}
-        <p className="plasmo-text-center plasmo-text-sm">
-          {bsDate[0]}-{bsDate[1]}-{bsDate[2]}
-        </p>
-        {/* for day */}
+        <p className="plasmo-text-center plasmo-text-sm">{nepaliDate.adDate}</p>
         <p className="plasmo-text-center plasmo-text-lg plasmo-mt-2">
-          {nepday}
+          {nepaliDate.nepday}, {tithi}
         </p>
       </div>
       <div className="plasmo-p-4">
