@@ -22,7 +22,7 @@ export default async function getData(
 
     // Log and return the data if found
     if (day) {
-      return day.t
+      return { tithi: day.t, fest: day.f }
     } else {
       console.error(`Date ${nepDate} not found in the data.`)
       return null

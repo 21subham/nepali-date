@@ -42,11 +42,12 @@ export default async function getNepaliDate() {
     const bsDate = adToBs(adDate).toString().split("-")
     const [bsYear, bsMonth, bsDay] = bsDate
 
-    const tithi = await getData(
+    const { tithi, fest } = await getData(
       today.getDate().toString().padStart(2, "0"),
       bsMonth,
       bsYear
     )
+    console.log(fest)
 
     return {
       nepday,
@@ -56,7 +57,8 @@ export default async function getNepaliDate() {
       date,
       adDate,
       monthcalc: monthcalc(bsMonth),
-      tithi
+      tithi,
+      fest
     }
   } catch (e) {
     console.error("Error in getNepaliDate:", e.message)

@@ -14,6 +14,7 @@ interface NepaliDate {
   adDate: string
   monthcalc: string
   tithi: string | null
+  fest: string | null
 }
 
 export default function NepaliDateEvents() {
@@ -33,7 +34,6 @@ export default function NepaliDateEvents() {
         const dateData = await getNepaliDate()
         if (dateData) {
           setNepaliDate(dateData)
-          console.log(dateData.bsDate)
         }
       } catch (error) {
         console.error("Error fetching Nepali date:", error)
