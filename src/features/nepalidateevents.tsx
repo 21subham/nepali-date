@@ -23,7 +23,6 @@ export default function NepaliDateFestivals() {
           setNepaliDate(dateData)
 
           console.log(dateData.month + 1)
-          console.log(setNepaliDate(dateData + 1))
         }
       } catch (error) {
         console.error("Error fetching Nepali date:", error)
