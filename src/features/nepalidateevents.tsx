@@ -1,4 +1,4 @@
-import { Calendar } from "lucide-react"
+import { Calendar, ChevronLeft, ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
 
 import getNepaliDate from "~lib/getNepaliDate"
@@ -21,6 +21,9 @@ export default function NepaliDateFestivals() {
         const dateData = await getNepaliDate()
         if (dateData) {
           setNepaliDate(dateData)
+
+          console.log(dateData.month + 1)
+          console.log(setNepaliDate(dateData + 1))
         }
       } catch (error) {
         console.error("Error fetching Nepali date:", error)
@@ -42,7 +45,19 @@ export default function NepaliDateFestivals() {
         <h1 className="plasmo-text-center plasmo-font-bold plasmo-text-2xl">
           {monthcalc} {bsDate[2]}, {bsDate[0]}
         </h1>
-        <p className="plasmo-text-center plasmo-text-sm">{adDate}</p>
+        <div className="plasmo-flex plasmo-items-center plasmo-justify-between">
+          {/* <button
+            className="plasmo-w-8 plasmo-h-8 plasmo-flex plasmo-items-center plasmo-justify-center plasmo-rounded-full plasmo-hover:bg-white/20 plasmo-transition-colors"
+            aria-label="Previous">
+            <ChevronLeft className="plasmo-h-4 plasmo-w-4" />
+          </button> */}
+          <p className="plasmo-text-center plasmo-text-sm">{adDate}</p>
+          {/* <button
+            className="plasmo-w-8 plasmo-h-8 plasmo-flex plasmo-items-center plasmo-justify-center plasmo-rounded-full plasmo-hover:bg-white/20 plasmo-transition-colors"
+            aria-label="Next">
+            <ChevronRight className="plasmo-h-4 plasmo-w-4" />
+          </button> */}
+        </div>
         <p className="plasmo-text-center plasmo-text-lg plasmo-mt-2">
           {nepday}, {tithi || "Tithi Not Available"}
         </p>
@@ -53,7 +68,7 @@ export default function NepaliDateFestivals() {
           <h2 className="plasmo-text-lg plasmo-font-semibold">आजका पर्वहरू</h2>
         </div>
         {fest ? (
-          <ul className="plasmo-space-y-3 plasmo-text-sm">
+          <ul className="plasmo-space-y-3 plasmo-text-sm ">
             {fest.split(", ").map((festival, index) => (
               <li key={index} className="plasmo-flex plasmo-items-start">
                 <span className="plasmo-font-semibold plasmo-text-red-800">
