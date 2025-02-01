@@ -1,12 +1,12 @@
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Calendar, ChevronLeft, ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
-import type React from "react"
 
 import getNepaliDate from "~lib/getNepaliDate"
 
+import TabButton from "../components/TabButton"
 import Bratabandha from "./bratabandha-date"
 import DailyEvent from "./daily-event"
-import Marriage from "./marrige-date"
+import Marriage from "./marriage-date"
 
 interface IDay {
   n: string
@@ -29,37 +29,6 @@ export interface INepaliDate {
   bratabandhaData: string
   marriageData: string
 }
-
-interface TabButtonProps {
-  setActiveTab: (tab: string) => void
-  tab: string
-  activeTab: string
-  text: string
-  isHoliday: boolean
-}
-
-const TabButton: React.FC<TabButtonProps> = ({
-  setActiveTab,
-  tab,
-  activeTab,
-  text,
-  isHoliday
-}) => (
-  <button
-    onClick={() => setActiveTab(tab)}
-    className={`plasmo-px-4 plasmo-py-2 plasmo-rounded-md plasmo-text-sm plasmo-font-medium plasmo-transition-colors
-      ${
-        activeTab === tab
-          ? isHoliday
-            ? "plasmo-bg-red-500 plasmo-text-white"
-            : "plasmo-bg-green-500 plasmo-text-white"
-          : isHoliday
-            ? "plasmo-bg-red-100 plasmo-text-red-700 hover:plasmo-bg-red-200"
-            : "plasmo-bg-green-100 plasmo-text-green-700 hover:plasmo-bg-green-200"
-      }`}>
-    {text}
-  </button>
-)
 
 export default function NepaliDateFestivals() {
   const [nepaliDate, setNepaliDate] = useState<INepaliDate | null>(null)
@@ -98,7 +67,8 @@ export default function NepaliDateFestivals() {
 
   return (
     <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl plasmo-shadow-lg">
-      <div className="plasmo-bg-red-800 plasmo-text-white plasmo-p-4 plasmo-my-1 plasmo-m-2 plasmo-rounded-lg">
+      {/* Header section with dark red background */}
+      <div className="plasmo-bg-red-800 plasmo-text-white plasmo-p-4">
         <h1 className="plasmo-text-center plasmo-font-bold plasmo-text-2xl">
           {monthcalc} {singleDayData.n}, {bsDate[0]}
         </h1>
@@ -122,10 +92,8 @@ export default function NepaliDateFestivals() {
         </p>
       </div>
 
-      {/* bottom half */}
-      <div
-        className={`plasmo-p-4 ${isHoliday ? "" : "plasmo-bg-gradient-to-b plasmo-from-emerald-50 plasmo-to-green-100"}`}>
-        {/* tabs selector button */}
+      {/* Tabs section */}
+      <div className="plasmo-bg-red-50 plasmo-p-4">
         <div className="plasmo-flex plasmo-space-x-2 plasmo-mb-4">
           <TabButton
             setActiveTab={setActiveTab}
@@ -150,16 +118,28 @@ export default function NepaliDateFestivals() {
           />
         </div>
 
-        {/* display active tags */}
-        {activeTab === "events" && (
-          <DailyEvent isHoliday={isHoliday} nepaliDate={nepaliDate} />
-        )}
-        {activeTab === "bratabandha" && (
-          <Bratabandha isHoliday={isHoliday} nepaliDate={nepaliDate} />
-        )}
-        {activeTab === "marriage" && (
-          <Marriage isHoliday={isHoliday} nepaliDate={nepaliDate} />
-        )}
+        {/* Content section with icon and heading */}
+        <div className="plasmo-flex plasmo-items-center plasmo-mb-4">
+          <Calendar className="plasmo-h-5 plasmo-w-5 plasmo-text-red-800" />
+          <h2 className="plasmo-ml-2 plasmo-text-lg plasmo-font-bold plasmo-text-red-800">
+            {activeTab === "events" && "आजका पर्वहरू"}
+            {activeTab === "bratabandha" && "ब्रतबन्ध मुहूर्त"}
+            {activeTab === "marriage" && "विवाह मुहूर्त"}
+          </h2>
+        </div>
+
+        {/* Tab content */}
+        <div className="plasmo-mt-2">
+          {activeTab === "events" && (
+            <DailyEvent isHoliday={isHoliday} nepaliDate={nepaliDate} />
+          )}
+          {activeTab === "bratabandha" && (
+            <Bratabandha isHoliday={isHoliday} nepaliDate={nepaliDate} />
+          )}
+          {activeTab === "marriage" && (
+            <Marriage isHoliday={isHoliday} nepaliDate={nepaliDate} />
+          )}
+        </div>
       </div>
     </div>
   )

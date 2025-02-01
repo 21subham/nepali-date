@@ -13,12 +13,9 @@ export default function Bratabandha({
   return (
     <>
       <div
-        className={`flex items-center my-2 ${isHoliday ? "text-red-800" : "text-emerald-700"}`}>
-        <Clock className="mr-2 h-5 w-5 " />
-        <h2 className="text-lg font-semibold font-sans">ब्रतबन्ध मुर्हुतहरू</h2>
-      </div>
+        className={`flex items-center my-2 ${isHoliday ? "text-red-800" : "text-emerald-700"}`}></div>
       {nepaliDate.bratabandhaData ? (
-        <ul className="px-3 text-sm space-y-3">
+        <ul className="px-3 text-sm space-y-3 ">
           <li className="flex items-start">
             <span
               className={`font-semibold ${isHoliday ? "text-red-800" : "text-emerald-700"}`}>
@@ -28,7 +25,7 @@ export default function Bratabandha({
           </li>
         </ul>
       ) : (
-        <p className="text-center text-gray-500 italic font-sans">
+        <p className="text-center text-gray-500 italic font-sans ">
           {" "}
           आज कुनै पर्वहरूछैन
         </p>

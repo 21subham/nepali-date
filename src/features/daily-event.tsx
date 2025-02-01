@@ -14,10 +14,7 @@ export default function DailyEvent({
   return (
     <>
       <div
-        className={`flex items-center mb-2 ${isHoliday ? "text-red-800" : "text-emerald-700"}`}>
-        <Calendar className="mr-2 h-5 w-5 " />
-        <h2 className="text-lg font-semibold font-sans">आजका पर्वहरू</h2>
-      </div>
+        className={`flex items-center mb-2 ${isHoliday ? "text-red-800" : "text-emerald-700"}`}></div>
       {nepaliDate.singleDayData.f ? (
         <ul className="px-3 space-y-3 text-sm">
           {nepaliDate.singleDayData.f.split(", ").map((festival, index) => (
@@ -31,7 +28,7 @@ export default function DailyEvent({
           ))}
         </ul>
       ) : (
-        <p className=" px-3 space-y-3 text-sm">
+        <p className=" px-3 space-y-3 text-md">
           {" "}
           <span
             className={`font-semibold ${isHoliday ? "text-red-800" : "text-emerald-700"}`}>
