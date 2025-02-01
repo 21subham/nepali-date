@@ -3,6 +3,10 @@ import { useEffect, useState } from "react"
 
 import getNepaliDate from "~lib/getNepaliDate"
 
+import Bratabandha from "./bratabandha-date"
+import DailyEvent from "./daily-event"
+import Marrige from "./marrige-date"
+
 interface IDay {
   n: string
   e: string
@@ -11,7 +15,7 @@ interface IDay {
   h: boolean
   d: number
 }
-interface INepaliDate {
+export interface INepaliDate {
   bsDate: string[]
   enYear: string
   enMonth: string
@@ -88,22 +92,6 @@ export default function NepaliDateFestivals() {
           <Calendar className="plasmo-mr-2 plasmo-h-5 plasmo-w-5 plasmo-text-red-800" />
           <h2 className="plasmo-text-lg plasmo-font-semibold">आजका पर्वहरू</h2>
         </div>
-        {nepaliDate.singleDayData.f ? (
-          <ul className="plasmo-space-y-3 plasmo-text-sm ">
-            {nepaliDate.singleDayData.f.split(", ").map((festival, index) => (
-              <li key={index} className="plasmo-flex plasmo-items-start">
-                <span className="plasmo-font-semibold plasmo-text-red-800">
-                  •
-                </span>
-                <span className="plasmo-ml-2">{festival}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="plasmo-text-center plasmo-text-gray-500 plasmo-italic">
-            कुनै पर्व छैन
-          </p>
-        )}
       </div>
     </div>
   )
