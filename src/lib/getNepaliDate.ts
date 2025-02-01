@@ -6,6 +6,7 @@ export default async function getNepaliDate() {
   const today = new Date()
   const englishDay = today.toLocaleDateString("en-US", { weekday: "long" })
 
+  //weekday
   const nepaliDays = {
     Sunday: "आइतबार",
     Monday: "सोमबार",
@@ -17,6 +18,7 @@ export default async function getNepaliDate() {
   }
   const nepday = nepaliDays[englishDay] || ""
 
+  //mahina
   const Months = [
     "बैशाख",
     "जेठ",
@@ -34,31 +36,39 @@ export default async function getNepaliDate() {
   const monthcalc = (month: string) => Months[parseInt(month) - 1]
 
   try {
-    const year = today.getFullYear().toString()
-    const month = (today.getMonth() + 1).toString()
-    const date = today.getDate().toString()
-    const adDate = `${year}-${month}-${date}`
+    //AD
+    const enYear = today.getFullYear().toString()
+    const enMonth = (today.getMonth() + 1).toString()
+    const enDate = today.getDate().toString()
+    const adDate = `${enYear}-${enMonth}-${enDate}`
+    console.log(enDate, ",", adDate)
 
+    const englishMonth = today.toLocaleDateString("en-US", { month: "long" })
+    console.log(englishMonth)
+
+    //BS
     const bsDate = adToBs(adDate).toString().split("-")
     const [bsYear, bsMonth, bsDay] = bsDate
     console.log("bsday", bsDay)
 
-    const { tithi, fest } = await getData(
+    const { singleDayData, bratabandhaData, marriageData } = await getData(
       today.getDate().toString().padStart(2, "0"),
       bsMonth,
       bsYear
     )
 
     return {
-      nepday,
       bsDate,
-      year,
-      month,
-      date,
+      enYear,
+      enMonth,
+      englishMonth,
+      enDate,
       adDate,
+      nepday,
       monthcalc: monthcalc(bsMonth),
-      tithi,
-      fest
+      singleDayData,
+      bratabandhaData,
+      marriageData
     }
   } catch (e) {
     console.error("Error in getNepaliDate:", e.message)
