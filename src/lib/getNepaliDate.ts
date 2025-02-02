@@ -56,7 +56,8 @@ export default async function getNepaliDate() {
       bsMonth,
       bsYear
     )
-
+    console.log(bsDay)
+    console.log(singleDayData)
     return {
       bsDate,
       enYear,
