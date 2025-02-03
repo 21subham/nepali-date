@@ -58,9 +58,7 @@ export default async function getNepaliDate() {
     )
 
     //inc
-    export function Incrementor{
-      
-    }
+    function Incrementor() {}
     return {
       bsDate,
       enYear,
