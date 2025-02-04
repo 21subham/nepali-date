@@ -12,8 +12,7 @@ const TabButton: React.FC<TabButtonProps> = ({
   setActiveTab,
   tab,
   activeTab,
-  text,
-  isHoliday
+  text
 }) => (
   <button
     onClick={() => setActiveTab(tab)}

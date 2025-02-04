@@ -41,20 +41,24 @@ export default async function getNepaliDate() {
     const enMonth = (today.getMonth() + 1).toString()
     const enDate = today.getDate().toString()
     const adDate = `${enYear}-${enMonth}-${enDate}`
-    console.log(enDate, ",", adDate)
 
     const englishMonth = today.toLocaleDateString("en-US", { month: "long" })
-    console.log(englishMonth)
 
     //BS
     const bsDate = adToBs(adDate).toString().split("-")
     const [bsYear, bsMonth, bsDay] = bsDate
-    console.log("bsday", bsDay)
 
     const { singleDayData, bratabandhaData, marriageData } = await getData(
       today.getDate().toString().padStart(2, "0"),
       bsMonth,
       bsYear
+    )
+    //check
+    console.log(monthcalc(bsMonth), (singleDayData + 1).n, ",", bsDate[0])
+    console.log(englishMonth.slice(0, 3), enDate, ",", enYear)
+    console.log(nepday, singleDayData.t)
+    console.log(
+      "////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
     )
 
     //inc
