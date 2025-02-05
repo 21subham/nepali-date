@@ -33,26 +33,26 @@ export interface INepaliDate {
 export default function NepaliDateFestivals() {
   const [nepaliDate, setNepaliDate] = useState<INepaliDate | null>(null)
   const [activeTab, setActiveTab] = useState("events")
+  const [currentDate, setCurrentDate] = useState<Date>(new Date())
+
+  const fetchNepaliDate = async (date: Date) => {
+    try {
+      const dateData = await getNepaliDate(date)
+      if (dateData) {
+        setNepaliDate(dateData)
+      }
+    } catch (error) {
+      console.error("Error fetching Nepali date:", error)
+    }
+  }
 
   useEffect(() => {
-    const fetchNepaliDate = async () => {
-      try {
-        const dateData = await getNepaliDate()
-        if (dateData) {
-          setNepaliDate(dateData)
-        }
-      } catch (error) {
-        console.error("Error fetching Nepali date:", error)
-      }
-    }
-
-    fetchNepaliDate()
-  }, [])
+    fetchNepaliDate(currentDate)
+  }, [currentDate])
 
   if (!nepaliDate) {
     return <div>Loading Nepali Date...</div>
   }
-
   const {
     nepday,
     bsDate,
@@ -64,6 +64,18 @@ export default function NepaliDateFestivals() {
   } = nepaliDate
 
   const isHoliday = singleDayData.h
+  const handlePreviousDay = () => {
+    console.log("previous day")
+    const previousDay = new Date(currentDate)
+    previousDay.setDate(currentDate.getDate() - 1)
+    setCurrentDate(previousDay)
+  }
+
+  const handleNextDay = () => {
+    const nextDay = new Date(currentDate)
+    nextDay.setDate(currentDate.getDate() + 1)
+    setCurrentDate(nextDay)
+  }
 
   return (
     <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl plasmo-shadow-lg">
@@ -74,6 +86,7 @@ export default function NepaliDateFestivals() {
         </h1>
         <div className="plasmo-flex plasmo-items-center plasmo-justify-between">
           <button
+            onClick={handlePreviousDay}
             className="plasmo-w-8 plasmo-h-8 plasmo-flex plasmo-items-center plasmo-justify-center plasmo-rounded-full plasmo-hover:bg-white/20 plasmo-transition-colors"
             aria-label="Previous">
             <ChevronLeft className="plasmo-h-4 plasmo-w-4" />
@@ -82,6 +95,7 @@ export default function NepaliDateFestivals() {
             {englishMonth.slice(0, 3)} {enDate}, {enYear}
           </p>
           <button
+            onClick={handleNextDay}
             className="plasmo-w-8 plasmo-h-8 plasmo-flex plasmo-items-center plasmo-justify-center plasmo-rounded-full plasmo-hover:bg-white/20 plasmo-transition-colors"
             aria-label="Next">
             <ChevronRight className="plasmo-h-4 plasmo-w-4" />

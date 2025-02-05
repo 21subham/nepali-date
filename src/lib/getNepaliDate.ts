@@ -2,9 +2,8 @@ import { adToBs } from "@sbmdkl/nepali-date-converter"
 
 import getData from "./getData" // Import the getData function
 
-export default async function getNepaliDate() {
-  const today = new Date()
-  const englishDay = today.toLocaleDateString("en-US", { weekday: "long" })
+export default async function getNepaliDate(date: Date = new Date()) {
+  const englishDay = date.toLocaleDateString("en-US", { weekday: "long" })
 
   //weekday
   const nepaliDays = {
@@ -37,32 +36,31 @@ export default async function getNepaliDate() {
 
   try {
     //AD
-    const enYear = today.getFullYear().toString()
-    const enMonth = (today.getMonth() + 1).toString()
-    const enDate = today.getDate().toString()
+    const enYear = date.getFullYear().toString()
+    const enMonth = (date.getMonth() + 1).toString()
+    const enDate = date.getDate().toString()
     const adDate = `${enYear}-${enMonth}-${enDate}`
 
-    const englishMonth = today.toLocaleDateString("en-US", { month: "long" })
+    const englishMonth = date.toLocaleDateString("en-US", { month: "long" })
 
     //BS
     const bsDate = adToBs(adDate).toString().split("-")
     const [bsYear, bsMonth, bsDay] = bsDate
 
     const { singleDayData, bratabandhaData, marriageData } = await getData(
-      today.getDate().toString().padStart(2, "0"),
+      date.getDate().toString().padStart(2, "0"),
       bsMonth,
       bsYear
     )
     //check
-    console.log(monthcalc(bsMonth), (singleDayData + 1).n, ",", bsDate[0])
-    console.log(englishMonth.slice(0, 3), enDate, ",", enYear)
-    console.log(nepday, singleDayData.t)
-    console.log(
-      "////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
-    )
+    // console.log(monthcalc(bsMonth), singleDayData.n, ",", bsDate[0])
+    // console.log(englishMonth.slice(0, 3), enDate, ",", enYear)
+    // console.log(nepday, singleDayData.t)
+    // console.log(
+    //   "////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
+    // )
+    // console.log(new Date())
 
-    //inc
-    function Incrementor() {}
     return {
       bsDate,
       enYear,
