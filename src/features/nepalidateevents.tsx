@@ -76,6 +76,8 @@ export default function NepaliDateFestivals() {
     nextDay.setDate(currentDate.getDate() + 1)
     setCurrentDate(nextDay)
   }
+  console.log(currentDate)
+  console.log(currentDate.getDate())
 
   return (
     <div className="plasmo-w-80 plasmo-bg-red-50 plasmo-rounded-xl plasmo-shadow-lg">

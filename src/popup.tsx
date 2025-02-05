@@ -4,7 +4,7 @@ import "~style.css"
 
 function IndexPopup() {
   return (
-    <div className="plasmo-rounded-xl">
+    <div>
       <NepaliDateEvents />
     </div>
   )
