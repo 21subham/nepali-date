@@ -4,7 +4,7 @@ export default async function getData(
   nepYear: string
 ) {
   try {
-    const url = `https://steins07.github.io/bs-date-data/data/${nepYear}/${nepMonth}.json`
+    const url = `https://21subham.github.io/Extension-date-data/${nepYear}/${nepMonth}.json`
 
     const response = await fetch(url)
 
